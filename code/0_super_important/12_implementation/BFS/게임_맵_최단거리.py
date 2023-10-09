@@ -1,8 +1,8 @@
 from collections import deque
 
 def solution(maps):
-    width, height = len(maps[0]), len(maps)
-    visited = [[0] * width for _ in range(height)]
+    cLen, rLen = len(maps[0]), len(maps)
+    visited = [[0] * cLen for _ in range(rLen)]
     visited[0][0] = 1
     
     next_path = [(-1, 0), (1, 0), (0, -1), (0, 1)]
@@ -11,16 +11,16 @@ def solution(maps):
     queue.append((0, 0))
     
     while queue:
-        x, y = queue.popleft()
+        r, c = queue.popleft()
         
         for path in next_path:
-            nx = x + path[0]
-            ny = y + path[1]
+            nr = r + path[0]
+            nc = c + path[1]
             
-            if (nx >= 0) and (ny >= 0) and (nx < height) and (ny < width):
-                if (maps[x][y] == 1 and visited[nx][ny] == 0):
-                    queue.append((nx,ny))
-                    visited[nx][ny] = visited[x][y] + 1
+            if (nr >= 0) and (nc >= 0) and (nr < rLen) and (nc < cLen):
+                if (maps[r][c] == 1 and visited[nr][nc] == 0):
+                    queue.append((nr, nc))
+                    visited[nr][nc] = visited[r][c] + 1
                 
-    return visited[height - 1][width - 1] or -1
+    return visited[rLen - 1][cLen - 1] or -1
 
